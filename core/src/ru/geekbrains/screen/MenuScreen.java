@@ -16,6 +16,7 @@ public class MenuScreen extends Base2DScreen {
     private Vector2 pos;
     private Vector2 v;
     private Vector2 mouseTouch;
+    private Vector2 buferVector;
 
     @Override
     public void show() {
@@ -25,6 +26,7 @@ public class MenuScreen extends Base2DScreen {
         pos = new Vector2(0,0);
         mouseTouch = new Vector2(0f,0f);
         v = new Vector2(0.5f,0.3f);
+        buferVector = new Vector2(0f,0f);
     }
 
     @Override
@@ -32,7 +34,8 @@ public class MenuScreen extends Base2DScreen {
         super.render(delta);
         Gdx.gl.glClearColor(0.128f, 0.53f, 0.9f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(mouseTouch.cpy().sub(pos).len() >0.9f){
+        buferVector.set(mouseTouch);
+        if(buferVector.sub(pos).len() >0.9f){
             pos.add(v);
         } else
             pos.set(mouseTouch);
