@@ -11,12 +11,13 @@ import com.badlogic.gdx.math.Vector2;
 public class StarGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	TextureRegion region;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
-
+		region = new TextureRegion(img,144, 20, 50, 30);
 
 		Vector2 v1 = new Vector2(2, 3);
 		Vector2 v2 = new Vector2(0, -1);
@@ -51,8 +52,9 @@ public class StarGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.setColor(1, 0, 0, 1);
-		batch.draw(img, 100, 100, 64,64);
+		batch.draw(img, 100, 100);
 		batch.setColor(0, 1, 0, 1);
+		batch.draw(region, 0,0);
 		batch.end();
 	}
 
