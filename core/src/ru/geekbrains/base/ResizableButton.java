@@ -3,9 +3,6 @@ package ru.geekbrains.base;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import ru.geekbrains.base.ActionListener;
-import ru.geekbrains.base.Sprite;
-
 public class ResizableButton extends Sprite {
 
     private int pointer;
@@ -21,25 +18,27 @@ public class ResizableButton extends Sprite {
     }
 
     @Override
-    public void touchDown(Vector2 touch,  int pointer) {
+    public boolean touchDown(Vector2 touch, int pointer) {
         if(isTouch || !isMe(touch)){
-            return;
+            return false;
         }
         this.pointer = pointer;
         scale = scaled;
         this.isTouch = true;
+        return false;
     }
 
     @Override
-    public void touchUp(Vector2 touch, int pointer) {
+    public boolean touchUp(Vector2 touch, int pointer) {
         if(this.pointer != pointer || !isTouch){
-            return ;
+            return false;
         }
         if(isMe(touch)){
             actionListener.actionPerformed(this);
-            return;
+            return false;
         }
         this.isTouch = false;
         this.scale = 1f;
+        return false;
     }
 }
