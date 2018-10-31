@@ -7,20 +7,30 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+import ru.geekbrains.base.ActionListener;
 import ru.geekbrains.base.Base2DScreen;
 import ru.geekbrains.math.Rect;
 import ru.geekbrains.sprite.Background;
+import ru.geekbrains.sprite.ExitButton;
+import ru.geekbrains.sprite.PlayButton;
 import ru.geekbrains.sprite.Star;
 
-public class MenuScreen extends Base2DScreen {
+public class MenuScreen extends Base2DScreen implements ActionListener{
 
     private static final int STAR_COUNT = 256;
+    private static final float BUTTON_RESIZE = 0.9f;
+    private static final float BUTTON_SIZE = 0.2f;
 
     private Texture bgTexture;
     private Background background;
 
     private TextureAtlas textureAtlas;
     private Star[] stars;
+
+    private ExitButton exitButton;
+    private PlayButton playButton;
+
+
 
 
     @Override
@@ -33,6 +43,8 @@ public class MenuScreen extends Base2DScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(textureAtlas);
         }
+        exitButton = new ExitButton(textureAtlas, this,BUTTON_RESIZE );
+        exitButton.setHeightProportion(BUTTON_SIZE);
     }
 
     @Override
@@ -57,6 +69,7 @@ public class MenuScreen extends Base2DScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i].draw(batch);
         }
+        exitButton.draw(batch);
         batch.end();
     }
 
@@ -78,5 +91,14 @@ public class MenuScreen extends Base2DScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
         return false;
+    }
+
+    @Override
+    public void actionPerformed(Object src) {
+        if(src == exitButton){
+            Gdx.app.exit();
+        }else {
+            throw new RuntimeException("Unknown thing");
+        }
     }
 }
