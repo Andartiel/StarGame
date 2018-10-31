@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 public class ResizableButton extends Sprite {
 
     private int pointer;
-    private boolean isTouch;
-    private float scaled;
-    ActionListener actionListener;
+    private static boolean isTouch;
+    private static float scaled;
+    static ActionListener actionListener;
 
     public ResizableButton(TextureRegion region,ActionListener actionListener, float scaled) {
         super(region);
@@ -18,27 +18,27 @@ public class ResizableButton extends Sprite {
     }
 
     @Override
-    public boolean touchDown(Vector2 touch, int pointer) {
+    public static void touchDown(Vector2 touch, int pointer) {
         if(isTouch || !isMe(touch)){
-            return false;
+            return;
         }
         this.pointer = pointer;
-        scale = scaled;
+        this.scale = scaled;
         this.isTouch = true;
-        return false;
+
     }
 
     @Override
-    public boolean touchUp(Vector2 touch, int pointer) {
+    public void touchUp(Vector2 touch, int pointer) {
         if(this.pointer != pointer || !isTouch){
-            return false;
+            return ;
         }
         if(isMe(touch)){
             actionListener.actionPerformed(this);
-            return false;
+            return ;
         }
         this.isTouch = false;
         this.scale = 1f;
-        return false;
+        return ;
     }
 }

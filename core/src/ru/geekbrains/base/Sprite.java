@@ -10,7 +10,7 @@ import ru.geekbrains.math.Rect;
 public class Sprite extends Rect {
 
     protected float angle;
-    protected float scale = 1f;
+    protected static float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
 
@@ -47,12 +47,12 @@ public class Sprite extends Rect {
 
     }
 
-    public boolean touchDown(Vector2 touch, int pointer) {
-        return false;
+    public void touchDown(Vector2 touch, int pointer) {
+        return ;
     }
 
-    public boolean touchUp(Vector2 touch, int pointer) {
-        return false;
+    public static void touchUp(Vector2 touch, int pointer) {
+        return ;
     }
 
     public float getAngle() {

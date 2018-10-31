@@ -79,6 +79,7 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
         for (int i = 0; i < stars.length; i++) {
             stars[i].resize(worldBounds);
         }
+        exitButton.resize(worldBounds);
     }
 
     @Override
@@ -88,9 +89,19 @@ public class MenuScreen extends Base2DScreen implements ActionListener{
         super.dispose();
     }
 
+
+
     @Override
-    public boolean touchDown(Vector2 touch, int pointer) {
-        return false;
+    public void touchDown(Vector2 touch, int pointer) {
+        super.touchDown(touch,pointer);
+        ExitButton.touchDown(touch,pointer);
+
+    }
+
+    @Override
+    public void touchUp(Vector2 touch, int pointer) {
+        super.touchUp(touch,pointer);
+        ExitButton.touchUp(touch,pointer);
     }
 
     @Override
