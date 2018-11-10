@@ -10,32 +10,54 @@ import ru.geekbrains.pool.BulletPool;
 
 
 public class Enemy extends Ship {
+    private enum MODE {DAWN, SHOOT}
+
+    private MODE MODE;
 
     private Vector2 v0 = new Vector2();
+    private Vector2 dawnV = new Vector2(0, -0.1f);
 
     public Enemy(BulletPool bulletPool, Rect worldBounds, Sound shootSound) {
         super(shootSound);
         this.bulletPool = bulletPool;
         this.worldBounds = worldBounds;
         this.v.set(v0);
+        this.MODE = MODE.DAWN;
+        this.v.set(dawnV);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
         pos.mulAdd(v, delta);
+        switch (MODE) {
+            case DAWN:
+                if (getTop() <= worldBounds.getTop()) {
+                    v.set(v0);
+                    MODE = MODE.SHOOT;
+                }
+                break;
+            case SHOOT:
+                pos.mulAdd(v, delta);
+                reloadTimer += delta;
+                if (reloadTimer >= reloadInterval) {
+                    shoot();
+                    reloadTimer = 0f;
+                }
+                break;
+        }
     }
 
     public void set(
-        TextureRegion[] regions,
-        Vector2 v0,
-        TextureRegion bulletRegion,
-        float bulletHeight,
-        float bulletVY,
-        int bulletDamage,
-        float reloadInterval,
-        float height,
-        int hp
+            TextureRegion[] regions,
+            Vector2 v0,
+            TextureRegion bulletRegion,
+            float bulletHeight,
+            float bulletVY,
+            int bulletDamage,
+            float reloadInterval,
+            float height,
+            int hp
     ) {
         this.regions = regions;
         this.v0.set(v0);
@@ -46,6 +68,6 @@ public class Enemy extends Ship {
         this.reloadInterval = reloadInterval;
         this.hp = hp;
         setHeightProportion(height);
-        v.set(v0);
+        this.v.set(dawnV);
     }
 }
