@@ -1,6 +1,7 @@
 package ru.geekbrains.sprite;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,8 +20,8 @@ public class MainShip extends Ship {
     private boolean pressedRight;
 
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
-        super(atlas.findRegion("main_ship"), 1, 2, 2);
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool,Sound shootSound) {
+        super(atlas.findRegion("main_ship"), 1, 2, 2,shootSound);
         this.atlas = atlas;
         setHeightProportion(0.15f);
         this.bulletPool = bulletPool;

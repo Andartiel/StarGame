@@ -1,6 +1,8 @@
 package ru.geekbrains.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -29,9 +31,14 @@ public class GameScreen extends Base2DScreen {
 
     private BulletPool bulletPool;
 
+    private Sound bulletSound;
+    private Music music;
+
+
     @Override
     public void show() {
         super.show();
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.mp3"));
         bgTexture = new Texture("bg.png");
         background = new Background(new TextureRegion(bgTexture));
         textureAtlas = new TextureAtlas("mainAtlas.tpack");
@@ -40,7 +47,11 @@ public class GameScreen extends Base2DScreen {
             stars[i] = new Star(textureAtlas);
         }
         bulletPool = new BulletPool();
-        mainShip = new MainShip(textureAtlas, bulletPool);
+        mainShip = new MainShip(textureAtlas, bulletPool, bulletSound);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setLooping(true);
+        music.play();
     }
 
     @Override
@@ -94,6 +105,8 @@ public class GameScreen extends Base2DScreen {
     public void dispose() {
         bgTexture.dispose();
         textureAtlas.dispose();
+        music.dispose();
+        bulletSound.dispose();
         super.dispose();
     }
 
