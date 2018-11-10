@@ -39,6 +39,14 @@ public class MainShip extends Ship {
             shoot();
             reloadTimer = 0f;
         }
+        if(getRight()>worldBounds.getRight()){
+            setRight(worldBounds.getRight());
+            stop();
+        }
+        if(getLeft()<worldBounds.getLeft()){
+            setLeft((worldBounds.getLeft()));
+            stop();
+        }
     }
 
     @Override
