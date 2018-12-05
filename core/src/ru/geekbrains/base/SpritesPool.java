@@ -26,7 +26,7 @@ public abstract class SpritesPool<T extends Sprite> {
     }
 
     public void drawActiveObjects(SpriteBatch batch) {
-        for (int i = 0; i <activeObjects.size(); i++) {
+        for (int i = 0; i < activeObjects.size(); i++) {
             Sprite sprite = activeObjects.get(i);
             if (!sprite.isDestroyed()) {
                 sprite.draw(batch);
@@ -35,7 +35,7 @@ public abstract class SpritesPool<T extends Sprite> {
     }
 
     public void updateActiveObjects(float delta) {
-        for (int i = 0; i <activeObjects.size(); i++) {
+        for (int i = 0; i < activeObjects.size(); i++) {
             Sprite sprite = activeObjects.get(i);
             if (!sprite.isDestroyed()) {
                 sprite.update(delta);
@@ -44,7 +44,7 @@ public abstract class SpritesPool<T extends Sprite> {
     }
 
     public void freeAllDestroyedActiveObjects() {
-        for (int i = 0; i <activeObjects.size(); i++) {
+        for (int i = 0; i < activeObjects.size(); i++) {
             T sprite = activeObjects.get(i);
             if (sprite.isDestroyed()) {
                 free(sprite);
@@ -55,9 +55,11 @@ public abstract class SpritesPool<T extends Sprite> {
     }
 
     public void freeAllActiveObjects() {
-       freeObjects.addAll(activeObjects);
-       activeObjects.clear();
-    }
+        freeObjects.addAll(activeObjects);
+        activeObjects.clear();
+        }
+
+
 
     private void free(T object) {
         if (activeObjects.remove(object)) {
